@@ -1,0 +1,33 @@
+.coverContainer {
+  flex-shrink: 0;
+  width: 160px;
+  background-color: var(--bg-tertiary);
+  border: 4px solid var(--border);
+  box-shadow: 4px 4px 0 var(--glow-purple);
+  transform: rotate(-2deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  transition: all 0.3s ease;
+  overflow: hidden; /* To keep cover image inside bounds cleanly */
+}
+
+/* Let the height adjust automatically based on width */
+.coverImage {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain; /* Better for varying aspect ratios if constrained */
+}
+
+@media (max-width: 768px) {
+  .coverContainer {
+    width: 100%;       /* Full width aligned with AI */
+    max-width: 100%;   /* No limits */
+    transform: none;   /* Flat, no rotation */
+    box-shadow: none;  /* Remove 3D protruding shadow to align */
+    border-radius: 0;
+    margin-bottom: -8px; /* Offset the 24px gap slightly if needed, or just let standard gap apply */
+  }
+}

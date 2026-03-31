@@ -1,0 +1,159 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--bg-primary);
+}
+
+.header {
+  padding: 12px 16px;
+  background-color: var(--bg-secondary);
+  border-bottom: 2px solid var(--border);
+  font-size: 14px;
+  color: var(--accent-pink);
+  flex-shrink: 0;
+}
+
+.contentArea {
+  display: flex;
+  flex: 1;
+  position: relative;
+  overflow: hidden; /* Contains scanline */
+}
+
+/* On mobile, stack vertically */
+@media (max-width: 768px) {
+  .contentArea {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+}
+
+.leftPane {
+  flex: 6; /* 60% */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-tertiary);
+  border-right: 2px solid var(--border);
+  padding: 16px;
+}
+
+@media (max-width: 768px) {
+  .leftPane {
+    flex: none;
+    border-right: none;
+    border-bottom: 2px solid var(--border);
+    height: 40vh;
+  }
+}
+
+.image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  box-shadow: 4px 4px 0 var(--glow-purple);
+}
+
+.placeholder {
+  font-family: var(--font-pixel);
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.rightPane {
+  flex: 4; /* 40% */
+  padding: 24px;
+  overflow-y: auto;
+}
+
+.footer {
+  height: 48px;
+  background-color: var(--bg-secondary);
+  border-top: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  flex-shrink: 0;
+}
+
+.pageBtn {
+  font-size: 10px;
+  height: 28px;
+  padding: 0 12px;
+  cursor: pointer;
+  color: var(--text-primary);
+}
+.pageBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.dots {
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--text-muted);
+  /* pixel shape so no border radius */
+}
+
+.dotActive {
+  background-color: var(--accent-purple);
+  box-shadow: 0 0 4px var(--glow-purple);
+}
+
+/* Scanline Animation */
+.scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: var(--text-primary);
+  box-shadow: 0 0 10px var(--text-primary);
+  z-index: 50;
+  animation: scan 0.2s linear forwards;
+}
+
+@keyframes scan {
+  from {
+    top: -10px;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  to {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+.scanlineUp {
+  animation: scanUp 0.2s linear forwards;
+}
+
+@keyframes scanUp {
+  from {
+    top: 100%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  to {
+    top: -10px;
+    opacity: 0;
+  }
+}

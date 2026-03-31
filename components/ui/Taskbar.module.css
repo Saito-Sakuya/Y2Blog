@@ -1,0 +1,100 @@
+.taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 36px;
+  background-color: var(--bg-secondary);
+  border-top: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+  z-index: 9999;
+  user-select: none;
+}
+
+.left, .right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.middle {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow-x: auto;
+  padding: 0 8px;
+  overflow-y: hidden;
+}
+
+/* Hide scrollbar for the middle section */
+.middle::-webkit-scrollbar {
+  display: none;
+}
+.middle {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.startBtn {
+  font-family: var(--font-pixel), monospace;
+  font-size: 10px;
+  height: 28px;
+  padding: 0 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-primary);
+}
+
+.winBtn {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  height: 28px;
+  padding: 0 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 100px;
+  max-width: 180px;
+  color: var(--text-primary);
+}
+
+.winBtnText {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.iconBtn {
+  font-family: var(--font-pixel), monospace;
+  font-size: 10px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-primary);
+}
+
+.clock {
+  font-family: var(--font-pixel), monospace;
+  font-size: 10px;
+  padding: 0 12px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  /* Indented look */
+  border-top: 2px solid var(--border);
+  border-left: 2px solid var(--border);
+  border-bottom: 2px solid var(--bg-primary);
+  border-right: 2px solid var(--bg-primary);
+  background-color: var(--bg-tertiary);
+  margin-left: 4px;
+  color: var(--text-primary);
+}

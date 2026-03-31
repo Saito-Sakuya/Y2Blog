@@ -1,0 +1,70 @@
+.toast {
+  position: fixed;
+  bottom: 60px; /* Above taskbar */
+  right: 20px;
+  width: 280px;
+  background-color: var(--bg-secondary);
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+}
+
+.toastEnter {
+  animation: slideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.toastLeave {
+  animation: slideOut 0.3s ease-in forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+}
+
+.toastHeader {
+  height: 24px;
+  background: linear-gradient(90deg, var(--accent-pink) 0%, var(--bg-secondary) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
+  color: var(--text-primary);
+}
+
+.closeBtn {
+  width: 16px;
+  height: 16px;
+  font-family: var(--font-pixel);
+  font-size: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-primary);
+}
+
+.toastBody {
+  padding: 12px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
