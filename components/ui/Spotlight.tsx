@@ -110,7 +110,7 @@ export default function Spotlight() {
   }, [isSpotlightOpen, setSpotlightOpen]);
 
   const handleOpenItem = (item: any) => {
-    openWindow(item.type, item.slug, item.title || item.name || 'Unknown');
+    openWindow(item.type, item.slug, item.title || item.name || 'Unknown', item.icon);
     setSpotlightOpen(false);
     setSpotlightQuery('');
     const isMobile = window.innerWidth < 768;
@@ -179,7 +179,7 @@ export default function Spotlight() {
         {items.map((item) => (
           <div key={`${item.type}-${item.slug}`} className={styles.menuItem} onClick={() => handleOpenItem(item)}>
             <div className={styles.menuItemIcon} style={{ color: item.color || 'inherit' }}>
-              {item.type === 'page' ? '#' : item.type === 'board' ? '*' : '>'}
+              {item.icon || (item.type === 'page' ? '#' : item.type === 'board' ? '*' : '>')}
             </div>
             <div className={styles.menuItemTitle}>
               [{item.type === 'article' ? '文章' : item.type === 'board' ? '板块' : item.type === 'rating' ? '评分' : '页面'}] {item.title || item.name}

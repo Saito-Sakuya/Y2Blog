@@ -52,3 +52,18 @@ export const fetchPreviewContent = async (token: string) => {
   if (!res.ok) throw new Error('Failed to fetch preview');
   return res.json();
 };
+
+export interface SiteConfig {
+  siteTitle: string;
+  siteDescription: string;
+  siteLogoUrl: string;
+  siteLicense: string;
+  siteLicenseUrl: string;
+  siteFooter: string;
+}
+
+export const fetchSiteConfig = async (): Promise<SiteConfig> => {
+  const res = await fetch(`${API_BASE}/site-config`);
+  if (!res.ok) throw new Error('Failed to fetch site config');
+  return res.json();
+};

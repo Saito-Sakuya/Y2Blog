@@ -100,13 +100,26 @@
 
 .title {
   color: var(--text-primary);
-  font-family: var(--font-pixel), monospace;
-  font-size: 10px;
   text-shadow: 1px 1px 0px var(--bg-primary);
   margin-left: 4px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.titleIcon {
+  font-size: 12px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.titleText {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 12px;
+  font-weight: 600;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

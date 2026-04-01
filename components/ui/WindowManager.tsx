@@ -9,6 +9,7 @@ import ArticleView from '@/components/views/ArticleView';
 import RatingView from '@/components/views/RatingView';
 import PhotoView from '@/components/views/PhotoView';
 import HelpView from '@/components/views/HelpView';
+import LicenseView from '@/components/views/LicenseView';
 
 export default function WindowManager() {
   const windows = useAppStore((state) => state.windows);
@@ -40,6 +41,9 @@ export default function WindowManager() {
             break;
           case 'help':
             content = <HelpView />;
+            break;
+          case 'license':
+            content = <LicenseView />;
             break;
           default:
             content = <div style={{ padding: 16 }}>Unknown content type: {w.type}</div>;

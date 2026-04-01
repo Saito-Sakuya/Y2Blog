@@ -1,13 +1,14 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
-export type WindowType = 'board' | 'article' | 'photo' | 'rating' | 'page' | 'help';
+export type WindowType = 'board' | 'article' | 'photo' | 'rating' | 'page' | 'help' | 'license';
 
 export interface WindowState {
   id: string;          // Format: `${type}-${slug}-${Date.now()}` to allow multiple same posts or unique
   type: WindowType;
   slug: string;        // The content slug
   title: string;       // Display title in the window bar
+  icon?: string;       // Custom icon character (emoji/symbol)
   x: number;
   y: number;
   width: number;
@@ -28,7 +29,7 @@ interface AppState {
   // Window management
   windows: WindowState[];
   activeZIndex: number;
-  openWindow: (type: WindowType, slug: string, title: string) => void;
+  openWindow: (type: WindowType, slug: string, title: string, icon?: string) => void;
   closeWindow: (id: string) => void;
   focusWindow: (id: string) => void;
   minimizeWindow: (id: string) => void;
@@ -72,7 +73,7 @@ export const useAppStore = create<AppState>()(
   // Windows
   windows: [],
   activeZIndex: 10,
-  openWindow: (type, slug, title) => {
+  openWindow: (type, slug, title, icon) => {
     // Check if already open (limit 1 instance per slug for simplicity, or allow multiple? Let's limit 1 for now)
     const existing = get().windows.find((w) => w.slug === slug && w.type === type);
     if (existing) {
@@ -99,14 +100,15 @@ export const useAppStore = create<AppState>()(
 
     // Calculate offset based on existing windows
     const offset = existingWindows.length * 20;
-    const w = type === 'rating' ? RATING_WIDTH : DEFAULT_WIDTH;
-    const h = type === 'rating' ? RATING_HEIGHT : (type === 'help' ? 600 : DEFAULT_HEIGHT);
+    const w = type === 'rating' ? RATING_WIDTH : (type === 'license' ? 500 : DEFAULT_WIDTH);
+    const h = type === 'rating' ? RATING_HEIGHT : (type === 'help' ? 600 : (type === 'license' ? 480 : DEFAULT_HEIGHT));
 
     const newWindow: WindowState = {
       id: `${type}-${slug}-${Date.now()}`,
       type,
       slug,
       title,
+      icon,
       x: isMobile ? 0 : 100 + offset,
       y: isMobile ? 0 : 50 + offset,
       width: isMobile ? (typeof window !== 'undefined' ? window.innerWidth : w) : w,
@@ -187,6 +189,7 @@ export const useAppStore = create<AppState>()(
       name: 'y2k-blog-session',
       storage: createJSONStorage(() => sessionStorage),
       partialize: (state) => ({
+        theme: state.theme,
         windows: state.windows,
         activeZIndex: state.activeZIndex,
         particleEnabled: state.particleEnabled,

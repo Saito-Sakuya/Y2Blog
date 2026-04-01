@@ -208,7 +208,17 @@ export default function Win98Window({ id, children }: Props) {
         onPointerUp={handlePointerUp}
       >
         <div className={styles.title}>
-          <span>[ICON]</span> {title}
+          <span className={styles.titleIcon}>{
+            windowState.icon ? windowState.icon :
+            windowState.type === 'board' ? '*' :
+            windowState.type === 'article' ? '>' :
+            windowState.type === 'rating' ? '+' :
+            windowState.type === 'photo' ? '~' :
+            windowState.type === 'help' ? '?' :
+            windowState.type === 'license' ? '!' :
+            windowState.type === 'page' ? '#' : '>'
+          }</span>
+          <span className={styles.titleText}>{title}</span>
         </div>
         <div className={styles.controls} onPointerDown={(e) => e.stopPropagation()}>
           <button className={clsx(styles.controlBtn, 'win-btn-depressed')} onClick={handleMinimize}>
