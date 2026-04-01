@@ -60,6 +60,7 @@ export interface SiteConfig {
   siteLicense: string;
   siteLicenseUrl: string;
   siteFooter: string;
+  isSetup: boolean;
 }
 
 export const fetchSiteConfig = async (): Promise<SiteConfig> => {
