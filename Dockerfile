@@ -9,8 +9,11 @@ RUN npm ci
 # Copy source
 COPY . .
 
-# Build args for API URL (baked into SSR/client bundle)
-ARG NEXT_PUBLIC_API_URL=http://localhost:8080
+# NEXT_PUBLIC_API_URL is baked into the client-side JS bundle at build time.
+# Default '' → client calls use relative /api/* paths, proxied by Nginx.
+# Only override for cross-origin API (e.g. https://api.example.com).
+# INTERNAL_API_URL is read at runtime by the Node.js SSR server (not a build arg).
+ARG NEXT_PUBLIC_API_URL=
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 
 # Build Next.js (standalone output)

@@ -1,4 +1,25 @@
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api';
+// API base URL strategy:
+//
+// SSR (server-side rendering, Node.js process):
+//   Uses INTERNAL_API_URL — a Docker-internal address like http://api:8080.
+//   This never leaves the Docker network and is fast.
+//
+// Client-side (browser JavaScript):
+//   Uses NEXT_PUBLIC_API_URL — baked into the JS bundle at build time.
+//   Defaults to '' (empty string), making all calls relative: /api/...
+//   When served through Nginx, /api/* is proxied to the backend automatically.
+//   Only set NEXT_PUBLIC_API_URL if the API is on a different domain/origin
+//   than the blog frontend (e.g. NEXT_PUBLIC_API_URL=https://api.example.com).
+//
+// This split means you only need to set INTERNAL_API_URL (Docker-internal) and
+// optionally NEXT_PUBLIC_API_URL (cross-origin API). For single-domain setups
+// (the common case), neither variable needs to be changed.
+
+const IS_SERVER = typeof window === 'undefined';
+
+const API_BASE = IS_SERVER
+  ? `${process.env.INTERNAL_API_URL || 'http://api:8080'}/api`
+  : `${process.env.NEXT_PUBLIC_API_URL || ''}/api`;
 
 export const fetchMenu = async () => {
   const res = await fetch(`${API_BASE}/menu`);
@@ -37,6 +58,7 @@ export const fetchAISummary = async (title: string, tags: string[]) => {
   if (!res.ok && res.status !== 202) throw new Error('Failed to fetch AI summary');
   return res.json(); // { summary, status, ... }
 };
+
 export const fetchTags = async () => {
   const res = await fetch(`${API_BASE}/tags`);
   if (!res.ok) throw new Error('Failed to fetch tags');
